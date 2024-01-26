@@ -1,0 +1,36 @@
+<div class="container mx-auto mt-8 px-5 flex grow flex-col" >
+  <div>
+  <h1 class="font-bold text-4xl">Containers</h1>
+  </div>
+  <% DockerHelper.get_containers.each do |container| %>
+      <div class="container flex columns-3 grow ">
+        <div class="flex justify-between items-center py-4 px-6 bg-white border-b-4 ">
+          <div>
+          <h3 class="font-semibold" ><%= container.info.dig("Names") %></h3>
+          <h4 class="text-m text-gray-600" ><%= container.info.dig("State") %> / <%= container.info.dig("Status") %></h4>
+          </div>
+        </div>
+          <div class="flex grow justify-between items-center flex-row bg-white border-b-4 py-4 px-6 ">
+
+          <% container.info.dig("Ports").each do |port| %>
+            <!- ignore ipv6 and nil public ports ->
+            <% next if port.dig("IP")=="::" || port.dig("PublicPort").nil? || port.dig("Type") != "tcp" %>
+              <div>
+                <h4 class="text-m font-semibold" >
+                  <%= link_to port.dig("PublicPort"), "http://#{request.host}:#{port.dig("PublicPort")}", target: "_blank", class:"hover:underline" %>
+                </h4>
+                <h4 class="text-m text-gray-600"><%= port.dig("Type") %></h4>
+              </div>
+              <div></div>
+          <% end %>
+          </div>
+ 
+      </div>
+      <!--
+      <div class="flex justify-between items-center py-4 px-6 bg-white border-b-4 ">
+      <pre><%= container.info %></pre>
+      </div>
+      -->
+    
+  <% end %>
+</div>

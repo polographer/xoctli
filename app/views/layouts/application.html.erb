@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Xoctli</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+  <header class="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
+      <h1 class="font-semibold text-xl tracking-tight">Xoctli Docker Dashboard</h1>
+      <h2 class="text-m tracking-tight">Docker Version: <%= DockerHelper.get_info.dig("ServerVersion") %></h2>
+      <h2 class="text-m tracking-tight">Containers r/p/s:
+        <%= DockerHelper.get_info.dig("ContainersRunning") %>/
+        <%= DockerHelper.get_info.dig("ContainersPaused") %>/
+        <%= DockerHelper.get_info.dig("ContainersStopped") %>
+      </h2>
+      <nav class="flex items-center justify-between">
+        <a class="text-gray-600 hover:text-gray-800 mx-3" href="#">Home</a>
+        <a class="text-gray-600 hover:text-gray-800 mx-3" href="#">About</a>
+        <a class="text-gray-600 hover:text-gray-800 mx-3" href="#">Contact</a>
+        <a class="text-gray-600 hover:text-gray-800 mx-3" href="#">Blog</a>
+      </nav>
+    </header
+  </header>  
+      
+    <main class="container mx-auto mt-5 px-5 flex grow">
+      <%= yield %>
+    </main>
+
+  <footer class="bg-gray-200 mt-28 ">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <a href="#" class="text-xl font-bold text-gray-500 hover:text-gray-400">poloornelas.mx</a>
+      <p class="py-2 text-gray-500 sm:py-0">MIT</p>
+    </div>
+  </footer>
+  </body>
+</html>
